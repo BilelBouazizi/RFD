@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  </head>
+  <body>
+    <h1>Historique de pointage</h1>
+  
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th><th>Prénom</th><th>Date d'entrée</th><th>date de sortie</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                <%  for(let ligne in pointage){ %>
+
+                   <tr>
+                     <td><%= pointage[ligne].nom %></td>
+                     <td><%= pointage[ligne].prenom %></td>
+                    <td><%= moment(pointage[ligne].entree).format('LLLL') %></td>
+                    <%if (pointage[ligne].sortie != null) {%>
+                    <td><%= moment(pointage[ligne].sortie).format('LLLL') %></td>
+                  <% } else {%>
+
+                    <td style="background-color: red">&nbsp; </td>
+                  <%}%>
+                  
+                  </tr>
+                     <% } %>
+                    
+                    <tr>
+                            <td colspan="5">&nbsp;</td>
+                    </tr>
+            </tbody>
+        </table> 
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>List des utilisateurs</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+   
+  </head>
+  <body>
+    <h1>Liste des utilisateurs</h1>
+    <form name="f1" action="http://localhost:3000/users/ajouter" method="POST">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th><th>Prénom</th><th>Tag</th><th>Etat</th><th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%  for(let ligne in users){ %>
+                
+                   <tr><td><%= users[ligne].nom %></td><td><%= users[ligne].prenom %></td><td><%= users[ligne].tag %></td>
+                    <td>
+                    <% if(users[ligne].etat ==10) { %>
+                    
+                        valide
+                         
+                    
+                    <% } else{ %>
+                        invalide
+                    <% } %>
+                      
+                
+            </td>
+      
+                    <td><a class="btn btn-danger"  id="delete" href="http://localhost:3000/users/delete/<%=users[ligne].id %>">Supprimer</a>
+
+                        <% if(users[ligne].etat ==10) { %>
+                        <a class="btn btn-danger" id="update" href="http://localhost:3000/users/update/<%=users[ligne].id %>/<%=users[ligne].tag%>">Bloquer</a></td>
+                        <% } else{ %>
+                            <a class="btn btn-primary" id="update" href="http://localhost:3000/users/update/<%=users[ligne].id %>/<%=users[ligne].tag%>">Autoriser</a></td>
+                            <% } %>
+                    </tr>
+                     <% } %>
+                     <tr>
+                            <td><input type="text" name="nom" /></td>
+                            <td><input type="text" name="prenom" /></td>
+                            <td><input type="text" hidden name="tag" id="tag"><div id="result"><input class="btn btn-warning" type="button" id="scan" value="Scanner"></div></td>
+                            <td><SELECT name="etat" size="1">
+                                <OPTION value="10">valide</OPTION>
+                                <OPTION value="20">invalide</OPTION>
+                              
+                                </SELECT>
+                            </td>
+                            <td><input class="btn btn-success"type="submit" value="Ajouter" name="b1"/></td>
+                    </tr>
+                    <tr>
+                            <td colspan="5">&nbsp;</td>
+                    </tr>
+            </tbody>
+        </table>    
+         </form>
+         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+         
+         <script> 
+            var $result = $('#result'); 
+            $('#scan').click(function() { 
+            $result.load('http://localhost:3000/users/scantag',function(){
+                $("#tag").val($result.html());
+            });
+            }); 
+
+           
+        </script> 
+
+  </body>
+</html>
